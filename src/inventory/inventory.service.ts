@@ -21,7 +21,7 @@ export class InventoryService {
   }
 
   async getAllInventories(queryParams?: InventoryFilter) {
-    const page = queryParams?.page ? Number(queryParams?.page) : 1;
+    const page = queryParams?.page ? Number(queryParams.page) : 1;
     const size = queryParams?.size ? Number(queryParams.size) : 10;
     const skip = (page - 1) * size;
     const query = await buildInventoryFilter(queryParams);
@@ -58,23 +58,30 @@ export class InventoryService {
     return inventory;
   }
 
-  async updateInventoryById(id: string, data: UpdateInventoryDto): Promise<Item> {
-    const inventory = await this.itemModel.findByIdAndUpdate(
-      id,
-      { $set: data },
-      { new: true },
-    ).exec();
-  
+  async updateInventoryById(
+    id: string,
+    data: UpdateInventoryDto,
+  ): Promise<Item> {
+    const inventory = await this.itemModel
+      .findByIdAndUpdate(id, { $set: data }, { new: true })
+      .exec();
+
     if (!inventory) {
-      throw new HttpException(`Inventory with id: ${id} not found`, HttpStatus.NOT_FOUND);
+      throw new HttpException(
+        `Inventory with id: ${id} not found`,
+        HttpStatus.NOT_FOUND,
+      );
     }
     return inventory;
   }
-  
+
   async deleteInventoryById(id: string): Promise<{ message: string }> {
     const inventory = await this.itemModel.findByIdAndDelete(id).exec();
     if (!inventory) {
-      throw new HttpException(`Inventory with id: ${id} not found`, HttpStatus.NOT_FOUND);
+      throw new HttpException(
+        `Inventory with id: ${id} not found`,
+        HttpStatus.NOT_FOUND,
+      );
     }
     return { message: `Inventory with id: ${id} successfully deleted` };
   }
