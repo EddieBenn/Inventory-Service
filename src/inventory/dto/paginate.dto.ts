@@ -4,13 +4,13 @@ import { CreateInventoryDto } from './create-inventory.dto';
 export class PaginationMetadataDto {
   @ApiProperty({
     example: 100,
-    description: 'The total number of location counters',
+    description: 'The total number of inventories',
   })
   totalRows: number;
 
   @ApiProperty({
     example: 10,
-    description: 'Number of location counters per page',
+    description: 'Number of inventories per page',
   })
   perPage: number;
 
@@ -30,7 +30,7 @@ export class PaginationMetadataDto {
 export class PaginationResponseDto {
   @ApiProperty({
     type: [CreateInventoryDto],
-    description: 'Array of location counter objects',
+    description: 'Array of inventory objects',
   })
   inventory: CreateInventoryDto[];
 
