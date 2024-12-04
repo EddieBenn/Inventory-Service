@@ -71,6 +71,27 @@ export class InventoryController {
     }
   }
 
+  @ApiOperation({ summary: 'Check Stock Availability' })
+  @ApiOkResponse({ description: 'Stock availability status returned' })
+  @ApiNotFoundResponse({ description: 'Item not found' })
+  @ApiBadRequestResponse()
+  @ResponseMessage('Stock check successful')
+  @Get('check-stock/:id')
+  async checkStockAvailability(
+    @Param('id') id: string,
+    @Query('quantity') quantity: number,
+  ) {
+    try {
+      const isAvailable = await this.inventoryService.checkStockAvailability(
+        id,
+        quantity,
+      );
+      return { isAvailable };
+    } catch (error) {
+      throw error;
+    }
+  }
+
   @ApiOperation({ summary: 'Get All Inventories' })
   @ApiQuery({ name: 'page', required: false, type: Number })
   @ApiQuery({ name: 'size', required: false, type: Number })
