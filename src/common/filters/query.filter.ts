@@ -5,9 +5,15 @@ export const buildInventoryFilter = async (queryParams: InventoryFilter) => {
   const query: Record<string, any> = {};
 
   if (queryParams?.name) query['name'] = queryParams.name.toLowerCase();
-  if (queryParams?.price) query['price'] = queryParams.price;
-  if (queryParams?.inStock) query['inStock'] = queryParams.inStock;
-  if (queryParams?.stock) query['stock'] = queryParams.stock;
+  if (queryParams?.price) query['price'] = Number(queryParams.price);
+  if (queryParams?.inStock) {
+    if (typeof queryParams?.inStock === 'string') {
+      query['inStock'] = queryParams.inStock === 'true';
+    } else {
+      query['inStock'] = queryParams.inStock;
+    }
+  }
+  if (queryParams?.stock) query['stock'] = Number(queryParams.stock);
 
   if (queryParams?.startDate && queryParams?.endDate) {
     const regex = /^\d{4}-\d{2}-\d{2}$/;

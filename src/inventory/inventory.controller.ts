@@ -29,6 +29,7 @@ import {
   ApiNotFoundResponse,
   ApiOkResponse,
   ApiOperation,
+  ApiQuery,
   ApiTags,
 } from '@nestjs/swagger';
 import { FileUploadService } from 'src/utils/cloudinary';
@@ -71,6 +72,12 @@ export class InventoryController {
   }
 
   @ApiOperation({ summary: 'Get All Inventories' })
+  @ApiQuery({ name: 'page', required: false, type: Number })
+  @ApiQuery({ name: 'size', required: false, type: Number })
+  @ApiQuery({ name: 'name', required: false, type: String })
+  @ApiQuery({ name: 'price', required: false, type: Number })
+  @ApiQuery({ name: 'inStock', required: false, type: Boolean })
+  @ApiQuery({ name: 'stock', required: false, type: Number })
   @ApiOkResponse({
     type: PaginationResponseDto,
     description: 'Paginated list of inventories',
