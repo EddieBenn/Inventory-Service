@@ -23,5 +23,13 @@ export class Item {
   @Prop({ required: true, default: 0 })
   stock: number;
 }
-
 export const ItemSchema = SchemaFactory.createForClass(Item);
+
+ItemSchema.set('toJSON', {
+  transform: function (doc, ret, options) {
+    ret.id = ret._id.toString();
+    delete ret._id;
+    delete ret.__v;
+    return ret;
+  },
+});
