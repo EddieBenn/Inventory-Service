@@ -1,11 +1,13 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { IsNotEmpty, IsNumber, IsString } from 'class-validator';
+import { Transform } from 'class-transformer';
+import { IsBoolean, IsNotEmpty, IsNumber, IsString } from 'class-validator';
 
 export class CreateInventoryDto {
   @ApiProperty({
     example: 'unisex black glasses',
     description: 'The name of the item',
   })
+  @Transform((val) => val.value.toLowerCase())
   @IsNotEmpty()
   @IsString()
   name: string;
@@ -19,11 +21,10 @@ export class CreateInventoryDto {
   description: string;
 
   @ApiProperty({
-    example: 'https://www.image.com',
+    type: 'string',
+    format: 'binary',
     description: 'Image url of the item',
   })
-  @IsNotEmpty()
-  @IsString()
   image: string;
 
   @ApiProperty({
@@ -31,12 +32,14 @@ export class CreateInventoryDto {
     description: 'The price of the item',
   })
   @IsNotEmpty()
+  @Transform(({ value }) => Number(value))
   @IsNumber()
   price: number;
 
   @ApiProperty({ example: true, description: 'Availability check for item' })
   @IsNotEmpty()
-  @IsString()
+  @Transform(({ value }) => value === 'true')
+  @IsBoolean()
   inStock: boolean;
 
   @ApiProperty({
@@ -44,6 +47,7 @@ export class CreateInventoryDto {
     description: 'The number of an item available',
   })
   @IsNotEmpty()
+  @Transform(({ value }) => Number(value))
   @IsNumber()
   stock: number;
 }
@@ -53,8 +57,8 @@ export interface InventoryFilter {
   price?: string;
   inStock?: boolean;
   stock?: string;
-  start_date?: string;
-  end_date?: string;
+  startDate?: string;
+  endDate?: string;
   size?: number;
   page?: number;
 }

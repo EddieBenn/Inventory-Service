@@ -43,8 +43,8 @@ async function bootstrap(): Promise<NestExpressApplication> {
     }),
   );
 
-  app.useGlobalFilters(new HttpExceptionFilter(reflector));
   app.useGlobalInterceptors(new ResponseInterceptor(reflector));
+  app.useGlobalFilters(new HttpExceptionFilter(reflector));
 
   const config = new DocumentBuilder()
     .setTitle('SmileMart(Inventory Service)')

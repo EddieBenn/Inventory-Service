@@ -18,7 +18,8 @@ export class UpdateInventoryResponseDto {
   description: string;
 
   @ApiProperty({
-    example: 'https://www.image.com',
+    type: 'string',
+    format: 'binary',
     description: 'Image url of the item',
   })
   image: string;
