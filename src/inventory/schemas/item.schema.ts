@@ -3,7 +3,7 @@ import { Document } from 'mongoose';
 
 export type ItemDocument = Item & Document;
 
-@Schema()
+@Schema({ timestamps: true })
 export class Item {
   @Prop({ required: true })
   name: string;
@@ -22,6 +22,10 @@ export class Item {
 
   @Prop({ required: true, default: 0 })
   stock: number;
+
+  createdAt: Date;
+
+  updatedAt: Date;
 }
 export const ItemSchema = SchemaFactory.createForClass(Item);
 
