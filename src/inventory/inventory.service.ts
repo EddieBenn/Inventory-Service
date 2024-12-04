@@ -20,6 +20,25 @@ export class InventoryService {
     return await createdItem.save();
   }
 
+  async checkStockAvailability(
+    itemId: string,
+    quantity: number,
+  ): Promise<boolean> {
+    const item = await this.itemModel.findById(itemId).exec();
+    if (!item) {
+      throw new HttpException(
+        `Item with id: ${itemId} not found`,
+        HttpStatus.NOT_FOUND,
+      );
+    }
+
+    if (item.stock >= Number(quantity)) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
   async getAllInventories(queryParams?: InventoryFilter) {
     const page = queryParams?.page ? Number(queryParams.page) : 1;
     const size = queryParams?.size ? Number(queryParams.size) : 10;
