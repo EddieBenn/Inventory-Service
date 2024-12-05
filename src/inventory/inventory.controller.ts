@@ -92,6 +92,23 @@ export class InventoryController {
     }
   }
 
+  @ApiOperation({ summary: 'Deduct Stock from Inventory' })
+  @ApiOkResponse({ description: 'Stock successfully deducted' })
+  @ApiNotFoundResponse({ description: 'Item not found' })
+  @ApiBadRequestResponse({ description: 'Insufficient stock' })
+  @ResponseMessage('Stock deduction successful')
+  @Put('deduct-stock/:id')
+  async deductStock(
+    @Param('id') id: string,
+    @Body('quantity') quantity: number,
+  ) {
+    try {
+      return this.inventoryService.deductStock(id, quantity);
+    } catch (error) {
+      throw error;
+    }
+  }
+
   @ApiOperation({ summary: 'Get All Inventories' })
   @ApiQuery({ name: 'page', required: false, type: Number })
   @ApiQuery({ name: 'size', required: false, type: Number })

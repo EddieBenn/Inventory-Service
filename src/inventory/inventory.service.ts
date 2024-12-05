@@ -39,6 +39,27 @@ export class InventoryService {
     }
   }
 
+  async deductStock(itemId: string, quantity: number): Promise<Item> {
+    const item = await this.itemModel.findById(itemId).exec();
+
+    if (!item) {
+      throw new HttpException(
+        `Item with id: ${itemId} not found`,
+        HttpStatus.NOT_FOUND,
+      );
+    }
+
+    if (item.stock < Number(quantity)) {
+      throw new HttpException(
+        `Insufficient stock for item with id: ${itemId}`,
+        HttpStatus.BAD_REQUEST,
+      );
+    }
+
+    item.stock -= Number(quantity);
+    return await item.save();
+  }
+
   async getAllInventories(queryParams?: InventoryFilter) {
     const page = queryParams?.page ? Number(queryParams.page) : 1;
     const size = queryParams?.size ? Number(queryParams.size) : 10;
