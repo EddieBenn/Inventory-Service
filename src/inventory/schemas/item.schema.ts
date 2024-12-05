@@ -26,6 +26,9 @@ export class Item {
   createdAt: Date;
 
   updatedAt: Date;
+
+  @Prop()
+  __v?: number;
 }
 export const ItemSchema = SchemaFactory.createForClass(Item);
 

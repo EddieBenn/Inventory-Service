@@ -20,6 +20,7 @@
     "test:e2e": "jest --config ./test/jest-e2e.json"
   },
   "dependencies": {
+    "@golevelup/ts-jest": "^0.6.1",
     "@nestjs/common": "^10.4.12",
     "@nestjs/config": "^3.3.0",
     "@nestjs/core": "^10.4.12",
@@ -83,6 +84,11 @@
       "**/*.(t|j)s"
     ],
     "coverageDirectory": "../coverage",
-    "testEnvironment": "node"
+    "testEnvironment": "node",
+    "moduleNameMapper": {
+      "src/common/(.*)$": "<rootDir>/common/$1",
+      "src/inventory/(.*)$": "<rootDir>/inventory/$1",
+      "src/utils/(.*)$": "<rootDir>/utils/$1"
+    }
   }
 }
