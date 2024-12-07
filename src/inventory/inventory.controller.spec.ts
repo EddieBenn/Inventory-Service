@@ -10,6 +10,7 @@ import {
 import { Item } from './schemas/item.schema';
 import { HttpException, HttpStatus } from '@nestjs/common';
 import { buildInventoryFilter } from 'src/common/filters/query.filter';
+import { AmqpConnection } from '@golevelup/nestjs-rabbitmq';
 
 jest.mock('../common/filters/query.filter', () => ({
   buildInventoryFilter: jest.fn(),
@@ -19,6 +20,7 @@ describe('InventoryController', () => {
   let controller: InventoryController;
   let service: DeepMocked<InventoryService>;
   let fileService: DeepMocked<FileUploadService>;
+  let amqpConnection: DeepMocked<AmqpConnection>;
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
@@ -32,12 +34,17 @@ describe('InventoryController', () => {
           provide: FileUploadService,
           useValue: createMock<FileUploadService>(),
         },
+        {
+          provide: AmqpConnection,
+          useValue: createMock<AmqpConnection>(),
+        },
       ],
     }).compile();
 
     controller = module.get<InventoryController>(InventoryController);
     service = module.get(InventoryService);
     fileService = module.get(FileUploadService);
+    amqpConnection = module.get(AmqpConnection);
   });
 
   it('should be defined', () => {
@@ -78,6 +85,8 @@ describe('InventoryController', () => {
       jest
         .spyOn(fileService, 'uploadFile')
         .mockResolvedValue(mockFileUploadResponse);
+
+      jest.spyOn(amqpConnection, 'publish').mockResolvedValue(undefined);
 
       const createdInventory = await controller.createInventory(
         mockInventoryPayload,
@@ -251,6 +260,7 @@ describe('InventoryController', () => {
 
     it('should update and return the inventory', async () => {
       jest.spyOn(service, 'updateInventoryById').mockResolvedValue(updateData);
+      jest.spyOn(amqpConnection, 'publish').mockResolvedValue(undefined);
 
       const result = await controller.updateInventoryById(itemId, updateData);
 
