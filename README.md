@@ -1,40 +1,55 @@
-<p align="center">
-  <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo-small.svg" width="200" alt="Nest Logo" /></a>
-</p>
+# SmileMart(Inventory Service)
 
-[circleci-image]: https://img.shields.io/circleci/build/github/nestjs/nest/master?token=abc123def456
-[circleci-url]: https://circleci.com/gh/nestjs/nest
+[SmileMart-Inventory-Url](https://edidiong-ndaobong-lendsqr-be-test.onrender.com)
 
-  <p align="center">A progressive <a href="http://nodejs.org" target="_blank">Node.js</a> framework for building efficient and scalable server-side applications.</p>
-    <p align="center">
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/v/@nestjs/core.svg" alt="NPM Version" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/l/@nestjs/core.svg" alt="Package License" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/dm/@nestjs/common.svg" alt="NPM Downloads" /></a>
-<a href="https://circleci.com/gh/nestjs/nest" target="_blank"><img src="https://img.shields.io/circleci/build/github/nestjs/nest/master" alt="CircleCI" /></a>
-<a href="https://coveralls.io/github/nestjs/nest?branch=master" target="_blank"><img src="https://coveralls.io/repos/github/nestjs/nest/badge.svg?branch=master#9" alt="Coverage" /></a>
-<a href="https://discord.gg/G7Qnnhy" target="_blank"><img src="https://img.shields.io/badge/discord-online-brightgreen.svg" alt="Discord"/></a>
-<a href="https://opencollective.com/nest#backer" target="_blank"><img src="https://opencollective.com/nest/backers/badge.svg" alt="Backers on Open Collective" /></a>
-<a href="https://opencollective.com/nest#sponsor" target="_blank"><img src="https://opencollective.com/nest/sponsors/badge.svg" alt="Sponsors on Open Collective" /></a>
-  <a href="https://paypal.me/kamilmysliwiec" target="_blank"><img src="https://img.shields.io/badge/Donate-PayPal-ff3f59.svg"/></a>
-    <a href="https://opencollective.com/nest#sponsor"  target="_blank"><img src="https://img.shields.io/badge/Support%20us-Open%20Collective-41B883.svg" alt="Support us"></a>
-  <a href="https://twitter.com/nestframework" target="_blank"><img src="https://img.shields.io/twitter/follow/nestframework.svg?style=social&label=Follow"></a>
-</p>
-  <!--[![Backers on Open Collective](https://opencollective.com/nest/backers/badge.svg)](https://opencollective.com/nest#backer)
-  [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
+## Project Overview
+SmileMart(Inventory Service) is a robust E-commerce platform built using **Node.js**, **NestJS**, **Docker**, **RabbitMQ**, **Mongoose**, and **MongoDB**. It provides a RESTful API for managing inventory, allowing users to easily create, update, and delete items, retrieve inventory details with pagination, and check stock availability. The platform features event-based communication by utilizing RabbitMQ, a message broker, allowing inventory updates to trigger notifications to other services (order-service). It integrates Cloudinary for image uploads during inventory creation. Swagger is integrated for easy API testing and documentation access. You can view the Swagger documentation by adding `/documentationView` to the base URL.
 
-## Description
+## Features
+- **Inventory Management**: Create, update, and retrieve inventory items with pagination.
+- **Stock Availability**: Check real-time stock levels for each item.
+- **Cloudinary Integration**: Upload images during inventory creation to enhance item listings.
 
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
+## Table of Contents
+Installation<br />
+Environment Variables<br />
+Project Structure<br />
+API Routes<br />
+Technologies Used<br />
+
 
 ## Installation
+To install and run the project locally:
 
-```bash
-$ npm install
+#### Clone the repository:
+
+``` 
+git clone https://github.com/EddieBenn/Inventory-Service.git
+```
+#### Navigate into the project directory:
+
+```
+cd Inventory-Service
 ```
 
-## Running the app
+#### Install dependencies:
 
-```bash
+```
+npm install
+```
+
+#### Create a .env file in the root directory and add the necessary environment variables (see the Environment Variables section).
+
+
+#### Build the project
+
+```
+npm run build
+```
+
+#### Running the app
+
+```
 # development
 $ npm run start
 
@@ -45,9 +60,9 @@ $ npm run start:dev
 $ npm run start:prod
 ```
 
-## Test
+#### Test
 
-```bash
+```
 # unit tests
 $ npm run test
 
@@ -58,16 +73,142 @@ $ npm run test:e2e
 $ npm run test:cov
 ```
 
-## Support
+# Environment Variables
+Create a .env file in the root directory with the following variables:
 
-Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
+```
+# DEVELOPMENT KEYS
+PORT = YOUR PORT
+MONGO_URI = YOUR MONGO_URI
+RABBITMQ_URI = YOUR RABBITMQ_URI
 
-## Stay in touch
+# CLOUDINARY KEYS
+CLOUDINARY_NAME = YOUR CLOUDINARY_NAME
+API_KEY = YOUR API_KEY
+API_SECRET = YOUR API_SECRET
 
-- Author - [Kamil Myśliwiec](https://kamilmysliwiec.com)
-- Website - [https://nestjs.com](https://nestjs.com/)
-- Twitter - [@nestframework](https://twitter.com/nestframework)
+```
 
-## License
 
-Nest is [MIT licensed](LICENSE).
+# Project Structure
+
+```
+├── src
+│   ├── common
+│   ├── inventory
+│   ├── utils
+│   ├── app.controller.spec.ts
+│   ├── app.controller.ts
+│   ├── app.module.ts
+│   ├── app.service.ts
+│   └── main.ts
+├── test
+│   ├── app.e2e-spec.ts
+│   └── jest.e2e.json
+├── .dockerignore
+├── .eslintrc.js
+├── .gitignore
+├── .prettierrc
+├── docker-compose.yml
+├── Dockerfile
+├── nest-cli.json
+├── package-lock.json
+├── package.json
+├── README.md
+├── tsconfig.json
+└── tsconfig.build.json
+```
+
+
+## API Routes
+#### Inventory Routes
+
+
+<table>
+  <thead>
+    <tr>
+      <th>HTTP Method</th>
+      <th>Endpoint</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>POST</td>
+      <td>/inventory</td>
+      <td>Create inventory</td>
+    </tr>
+    <tr>
+      <td>GET</td>
+      <td>/check-stock/:id</td>
+      <td>Check stock availability</td>
+    </tr>
+    <tr>
+      <td>PUT</td>
+      <td>/deduct-stock/:id</td>
+      <td>Deduct stock from inventory</td>
+    </tr>
+    <tr>
+      <td>GET</td>
+      <td>/</td>
+      <td>Get all inventories</td>
+    </tr>
+    <tr>
+      <td>GET</td>
+      <td>/:id</td>
+      <td>Get one inventory</td>
+    </tr>
+    <tr>
+      <td>PUT</td>
+      <td>/:id</td>
+      <td>Update inventory</td>
+    </tr>
+    <tr>
+      <td>DELETE</td>
+      <td>/:id</td>
+      <td>Delete inventory</td>
+    </tr>
+  </tbody>
+</table>
+
+
+## Technologies Used
+
+<ul>
+<li>
+Node.js
+</li>
+<li>
+NestJS
+</li>
+<li>
+TypeScript
+</li>
+<li>
+Docker
+</li>
+<li>
+RabbitMQ (for event-based communication)
+</li>
+<li>
+Cloudinary (for image uploads)
+</li>
+<li>
+Multer (for file uploads)
+</li>
+<li>
+Mongoose (for ODM)
+</li>
+<li>
+MongoDB
+</li>
+<li>
+Jest (for unit testing)
+</li>
+<li>
+Swagger (for API documentation and testing)
+</li>
+<li>
+Class-validator & Class-transformer (for input validation)
+</li>
+</ul>
