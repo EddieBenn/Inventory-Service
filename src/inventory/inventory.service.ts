@@ -8,16 +8,25 @@ import { InjectModel } from '@nestjs/mongoose';
 import { Item, ItemDocument } from './schemas/item.schema';
 import { Model } from 'mongoose';
 import { buildInventoryFilter } from 'src/common/filters/query.filter';
+import { AmqpConnection } from '@golevelup/nestjs-rabbitmq';
 
 @Injectable()
 export class InventoryService {
   constructor(
     @InjectModel(Item.name) private readonly itemModel: Model<ItemDocument>,
+    private readonly amqpConnection: AmqpConnection,
   ) {}
 
   async createInventory(body: CreateInventoryDto): Promise<Item> {
     const createdItem = new this.itemModel(body);
-    return await createdItem.save();
+    const savedItem = await createdItem.save();
+    await this.amqpConnection.publish('inventory_exchange', 'stock.created', {
+      id: savedItem.id,
+      name: savedItem.name,
+      stock: savedItem.stock,
+    });
+
+    return savedItem;
   }
 
   async checkStockAvailability(
@@ -102,17 +111,23 @@ export class InventoryService {
     id: string,
     data: UpdateInventoryDto,
   ): Promise<Item> {
-    const inventory = await this.itemModel
+    const updatedInventory = await this.itemModel
       .findByIdAndUpdate(id, { $set: data }, { new: true })
       .exec();
 
-    if (!inventory) {
+    if (!updatedInventory) {
       throw new HttpException(
         `Inventory with id: ${id} not found`,
         HttpStatus.NOT_FOUND,
       );
     }
-    return inventory;
+    await this.amqpConnection.publish('inventory_exchange', 'stock.updated', {
+      id: updatedInventory.id,
+      name: updatedInventory.name,
+      stock: updatedInventory.stock,
+    });
+
+    return updatedInventory;
   }
 
   async deleteInventoryById(id: string): Promise<{ message: string }> {

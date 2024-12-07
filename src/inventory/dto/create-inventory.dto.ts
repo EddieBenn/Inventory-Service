@@ -54,9 +54,9 @@ export class CreateInventoryDto {
 
 export interface InventoryFilter {
   name?: string;
-  price?: string;
+  price?: number;
   inStock?: boolean;
-  stock?: string;
+  stock?: number;
   startDate?: string;
   endDate?: string;
   size?: number;
