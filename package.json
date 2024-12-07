@@ -20,20 +20,25 @@
     "test:e2e": "jest --config ./test/jest-e2e.json"
   },
   "dependencies": {
+    "@golevelup/nestjs-rabbitmq": "^5.6.1",
+    "@golevelup/ts-jest": "^0.6.1",
     "@nestjs/common": "^10.4.12",
     "@nestjs/config": "^3.3.0",
     "@nestjs/core": "^10.4.12",
     "@nestjs/mapped-types": "*",
     "@nestjs/mongoose": "^10.1.0",
     "@nestjs/swagger": "^8.0.7",
+    "amqplib": "^0.10.5",
     "class-transformer": "^0.5.1",
     "class-validator": "^0.14.1",
     "cloudinary": "^2.5.1",
     "cookie-parser": "^1.4.7",
+    "docker": "^1.0.0",
     "dotenv": "^16.4.6",
     "express": "^4.21.1",
     "mongoose": "^8.8.3",
     "multer": "^1.4.5-lts.1",
+    "rabbitmq": "^0.0.2",
     "reflect-metadata": "^0.1.13",
     "rxjs": "^7.8.1",
     "streamifier": "^0.1.1"
@@ -83,6 +88,11 @@
       "**/*.(t|j)s"
     ],
     "coverageDirectory": "../coverage",
-    "testEnvironment": "node"
+    "testEnvironment": "node",
+    "moduleNameMapper": {
+      "src/common/(.*)$": "<rootDir>/common/$1",
+      "src/inventory/(.*)$": "<rootDir>/inventory/$1",
+      "src/utils/(.*)$": "<rootDir>/utils/$1"
+    }
   }
 }
