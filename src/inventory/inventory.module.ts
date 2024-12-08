@@ -15,7 +15,7 @@ import { ConfigService, ConfigModule } from '@nestjs/config';
       useFactory: (configService: ConfigService) => ({
         exchanges: [{ name: 'inventory_exchange', type: 'topic' }],
         uri: configService.get('RABBITMQ_URI'),
-        connectionInitOptions: { wait: false },
+        connectionInitOptions: { wait: true, timeout: 20000 },
       }),
       inject: [ConfigService],
     }),
