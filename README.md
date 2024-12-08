@@ -1,6 +1,6 @@
 # SmileMart(Inventory Service)
 
-[SmileMart-Inventory-Url](https://edidiong-ndaobong-lendsqr-be-test.onrender.com)
+[SmileMart-Inventory-Url](https://smilemart-inventory-service.onrender.com)
 
 ## Project Overview
 SmileMart(Inventory Service) is a robust E-commerce platform built using **Node.js**, **NestJS**, **Docker**, **RabbitMQ**, **Mongoose**, and **MongoDB**. It provides a RESTful API for managing inventory, allowing users to easily create, update, and delete items, retrieve inventory details with pagination, and check stock availability. The platform features event-based communication by utilizing RabbitMQ, a message broker, allowing inventory updates to trigger notifications to other services (order-service). It integrates Cloudinary for image uploads during inventory creation. Swagger is integrated for easy API testing and documentation access. You can view the Swagger documentation by adding `/documentationView` to the base URL.
