@@ -157,10 +157,10 @@ describe('InventoryController', () => {
         .spyOn(service, 'getAllInventories')
         .mockResolvedValue(expectedResult);
 
-      const allTransactions =
+      const allInventories =
         await controller.getAllInventories(mockQueryParams);
 
-      expect(allTransactions).toEqual(expectedResult);
+      expect(allInventories).toEqual(expectedResult);
       expect(service.getAllInventories).toHaveBeenCalledWith(mockQueryParams);
     });
 
