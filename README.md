@@ -140,32 +140,32 @@ API_SECRET = YOUR API_SECRET
     </tr>
     <tr>
       <td>GET</td>
-      <td>/check-stock/:id</td>
+      <td>/inventory/check-stock/:id</td>
       <td>Check stock availability</td>
     </tr>
     <tr>
       <td>PUT</td>
-      <td>/deduct-stock/:id</td>
+      <td>/inventory/deduct-stock/:id</td>
       <td>Deduct stock from inventory</td>
     </tr>
     <tr>
       <td>GET</td>
-      <td>/</td>
+      <td>/inventory</td>
       <td>Get all inventories</td>
     </tr>
     <tr>
       <td>GET</td>
-      <td>/:id</td>
+      <td>/inventory/:id</td>
       <td>Get one inventory</td>
     </tr>
     <tr>
       <td>PUT</td>
-      <td>/:id</td>
+      <td>/inventory/:id</td>
       <td>Update inventory</td>
     </tr>
     <tr>
       <td>DELETE</td>
-      <td>/:id</td>
+      <td>/inventory/:id</td>
       <td>Delete inventory</td>
     </tr>
   </tbody>
